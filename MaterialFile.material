@@ -1,0 +1,410 @@
+vertex_program shader/vs glsl 
+{
+    source MaterialVp.glsl 
+
+    default_params
+    {
+        param_named_auto world_mat world_matrix
+        param_named_auto view_mat view_matrix
+        param_named_auto projection_mat projection_matrix
+    }
+}
+
+
+fragment_program shader/fs glsl 
+{
+    source MaterialFp.glsl 
+
+	default_params
+	{
+		 param_named ambient_colour float4 0.1 0.1 0.1 1.0
+		 param_named diffuse_colour float4 0.5 0.5 0.5 1.0
+		 param_named specular_colour float4 0.8 0.5 0.9 1.0
+		 param_named ambient_amount float 0.1
+		 param_named phong_exponent float 128.0
+		 param_named diffuse_map int 0
+	}
+}
+
+
+material ObjectMaterial
+{
+    technique
+    {
+        pass
+        {
+            vertex_program_ref shader/vs
+            {
+            }
+
+            fragment_program_ref shader/fs
+            {
+            }
+        } 
+    }
+}
+
+
+material WhiteSurface
+{
+    technique
+    {
+        pass
+        {
+            ambient 0.5 0.5 0.5
+            diffuse 1.0 1.0 1.0
+			lighting off
+		}
+	}
+}
+material 
+{
+    technique
+    {
+        pass
+        {
+			lighting on
+            ambient 0.5 0.5 0.5
+            diffuse 1.0 1.0 1.0
+		}
+	}
+}
+
+
+material Simple
+ {
+   technique
+   {
+     pass
+     {
+       texture_unit
+       {
+         colour_op_ex source1 src_manual src_current 0.4 0.4 0.7
+       }
+     }
+   }
+}
+
+material Red
+ {
+   technique
+   {
+     pass
+     {
+	   lighting on
+	   ambient 0.4 0 0 1
+	   diffuse 1 0 0 1
+	   emissive 0.6 0 0 1
+     }
+   }
+}
+material Green
+ {
+   technique
+   {
+     pass
+     {
+	   lighting on
+	   ambient 0 0.4 0 1
+	   diffuse 0 1 0 1
+	   emissive 0 0.5 0 1
+     }
+   }
+}
+material Blue
+ {
+   technique
+   {
+     pass
+     {
+	   lighting on
+	   ambient 0 0 0.5 1
+	   diffuse 0 0 1 1
+	   emissive 0 0 0.5 1
+     }
+   }
+}
+material Fuchsia
+ {
+   technique
+   {
+     pass
+     {
+	   lighting on
+	   ambient 0.5 0 0.25 1
+	   diffuse 1 0 0.5 1
+	   emissive 0.4 0 0.2 1
+     }
+   }
+}
+material Gold
+ {
+   technique
+   {
+     pass
+     {
+	   lighting on
+	   ambient 0.4 0.3 0 1
+	   diffuse 0.8 0.6 0 1
+	   emissive 0.3 0.2 0 1
+     }
+   }
+}
+
+material Transparent {
+	technique {
+		pass {
+			scene_blend alpha_blend
+			depth_write off
+			texture_unit {
+				colour_op_ex source1 src_manual src_current 1 0 0
+				alpha_op_ex source1 src_manual src_current 0.0
+			}
+		}
+	}
+}
+
+material TRed
+ {
+   technique
+   {
+     pass
+     {
+       scene_blend alpha_blend
+       depth_write off
+ 
+       texture_unit
+       {
+         colour_op_ex source1 src_manual src_current 1 0 0
+         alpha_op_ex source1 src_manual src_current 0.5
+       }
+     }
+   }
+}
+material TGreen
+ {
+   technique
+   {
+     pass
+     {
+       scene_blend alpha_blend
+       depth_write off
+ 
+       texture_unit
+       {
+         colour_op_ex source1 src_manual src_current 0 1 0
+         alpha_op_ex source1 src_manual src_current 0.5
+       }
+     }
+   }
+}
+ 
+material TBlue
+ {
+   technique
+   {
+     pass
+     {
+       scene_blend alpha_blend
+       depth_write off
+ 
+       texture_unit
+       {
+         colour_op_ex source1 src_manual src_current 0 0 1
+         alpha_op_ex source1 src_manual src_current 0.5
+       }
+     }
+   }
+}
+ 
+material TFuchsia
+ {
+   technique
+   {
+     pass
+     {
+       scene_blend alpha_blend
+       depth_write off
+ 
+       texture_unit
+       {
+         colour_op_ex source1 src_manual src_current 1 0 0.5
+         alpha_op_ex source1 src_manual src_current 0.5
+       }
+     }
+   }
+}
+
+material TGold
+ {
+   technique
+   {
+     pass
+     {
+       scene_blend alpha_blend
+       depth_write off
+ 
+       texture_unit
+       {
+         colour_op_ex source1 src_manual src_current 0.8 0.6 0
+         alpha_op_ex source1 src_manual src_current 0.7
+       }
+     }
+   }
+}
+
+vertex_program shiny_texture_shader/vs glsl 
+{
+    source MaterialVp.glsl 
+
+    default_params
+    {
+        param_named_auto world_mat world_matrix
+        param_named_auto view_mat view_matrix
+        param_named_auto projection_mat projection_matrix
+		//param_named_auto normal_mat inverse_transpose_worldview_matrix
+		//param_named light_position float3 -0.5 -0.5 1.5
+    }
+}
+
+
+fragment_program shiny_texture_shader/fs glsl 
+{
+    source MaterialFp.glsl 
+
+	default_params
+	{
+		 param_named ambient_colour float4 0.1 0.1 0.1 1.0
+		 param_named diffuse_colour float4 0.5 0.5 0.5 1.0
+		 param_named specular_colour float4 0.8 0.5 0.9 1.0
+		 param_named ambient_amount float 0.1
+		 param_named phong_exponent float 128.0
+		 param_named diffuse_map int 0
+	}
+}
+
+material Floor {
+	technique {
+		pass {
+			texture_unit {
+				texture Material_grass.png
+				scale 0.01 0.01
+			}
+			texture_unit {
+				texture Material_alpha_blend.png
+				colour_op alpha_blend
+			}
+			texture_unit {
+				texture Material_dirt.jpg
+				scale 0.01 0.01
+				colour_op_ex blend_current_alpha src_texture src_current
+			}
+		}
+	}
+}
+
+
+material MainHeliMaterial {
+	technique {
+		pass {
+			vertex_program_ref shiny_texture_shader/vs
+            {
+            }
+
+            fragment_program_ref shiny_texture_shader/fs
+            {
+            }
+
+			texture_unit {
+				texture militaryTheme2.jpg 2d
+			}
+		}
+	}
+}
+
+material MainHeliMaterialX {
+	technique {
+		pass {
+			texture_unit {
+				texture militaryTheme2.jpg 2d
+			}
+		}
+	}
+}
+
+material EnemyHeliMaterial {
+	technique {
+		pass {
+			vertex_program_ref shiny_texture_shader/vs
+            {
+            }
+
+            fragment_program_ref shiny_texture_shader/fs
+            {
+            }
+
+			texture_unit {
+				texture blueTheme.jpg 2d
+			}
+		}
+	}
+}
+
+material EnemyHeliMaterialX {
+	technique {
+		pass {
+			texture_unit {
+				texture blueTheme.jpg 2d
+			}
+		}
+	}
+}
+
+material EnemyTurretMaterial {
+	technique {
+		pass {
+			vertex_program_ref shiny_texture_shader/vs
+            {
+            }
+
+            fragment_program_ref shiny_texture_shader/fs
+            {
+            }
+
+			texture_unit {
+				texture turret.jpg 2d
+			}
+		}
+	}
+}
+
+material EnemyTankMaterial {
+	technique {
+		pass {
+			vertex_program_ref shiny_texture_shader/vs
+            {
+            }
+
+            fragment_program_ref shiny_texture_shader/fs
+            {
+            }
+
+			texture_unit {
+				texture tank.jpg 2d
+			}
+		}
+	}
+}
+material Sky {
+	technique {
+		pass {
+			lighting off
+			depth_write off
+
+			texture_unit {
+				cubic_texture largesky.jpg separateUV
+				tex_address_mode clamp
+			}
+		}
+	}
+}

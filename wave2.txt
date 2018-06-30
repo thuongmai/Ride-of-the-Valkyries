@@ -1,0 +1,15 @@
+Stonehenge Offensive
+start
+trrt 300 0 0
+trrt 260 0 -150
+trrt 150 0 -260
+trrt 0 0 -300
+trrt -150 0 -260
+trrt -260 0 -150
+trrt -300 0 0
+trrt -260 0 150
+trrt -150 0 260
+trrt 0 0 300
+trrt 150 0 260
+trrt 260 0 150
+end
